@@ -1,0 +1,9 @@
+ <%= realm %> = {
+  kdc = <%= @kdc %>
+<% if @admin_server == 'UNSET' -%>
+  admin_server = <%= @kdc %>
+<% else -%>
+  admin_server = <%= @admin_server %>
+<% end -%>
+  auth_to_local = <%= @auth_to_local %>
+ }
