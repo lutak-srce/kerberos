@@ -1,7 +1,11 @@
- <%= realm %> = {
-  kdc = <%= @kdc %>
+ <%= @realm %> = {
+<% @kdc.each do |kdc_server| -%>
+  kdc = <%= kdc_server %>
+<% end -%>
 <% if @admin_server == 'UNSET' -%>
-  admin_server = <%= @kdc %>
+<% @kdc.each do |kdc_server| -%>
+  admin_server = <%= kdc_server %>
+<% end -%>
 <% else -%>
   admin_server = <%= @admin_server %>
 <% end -%>
