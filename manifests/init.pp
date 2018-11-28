@@ -120,12 +120,10 @@ class kerberos (
   }
 
   concat::fragment { "${file_krb5_conf}_domainrealm":
-    target  => $file_krb5_conf,
-    source  => 'puppet:///modules/kerberos/krb5.conf_domainrealm',
-    order   => '300',
+    target => $file_krb5_conf,
+    source => 'puppet:///modules/kerberos/krb5.conf_domainrealm',
+    order  => '300',
   }
-
-
 
 }
 # vi:syntax=puppet:filetype=puppet:ts=4:et:nowrap:

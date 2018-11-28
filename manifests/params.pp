@@ -17,14 +17,16 @@ class kerberos::params {
   case $::osfamily {
     default: {}
     /(RedHat|redhat|amazon)/: {
-      $package           = 'krb5-workstation'
-      $package_config    = 'krb5-libs'
-      $file_krb5_conf    = '/etc/krb5.conf'
+      $package        = 'krb5-workstation'
+      $package_config = 'krb5-libs'
+      $file_krb5_conf = '/etc/krb5.conf'
+      $package_pam    = 'pam_krb5'
     }
     /(debian|ubuntu)/: {
-      $package           = 'krb5-user'
-      $package_config    = 'krb5-config'
-      $file_krb5_conf    = '/etc/krb5.conf'
+      $package        = 'krb5-user'
+      $package_config = 'krb5-config'
+      $file_krb5_conf = '/etc/krb5.conf'
+      $package_pam    = 'libpam-krb5'
     }
   }
 
