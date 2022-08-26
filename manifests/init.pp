@@ -53,18 +53,21 @@
 #   Default realm to use, this is also known as your 'local realm'.
 #
 class kerberos (
-  $ensure            = $::kerberos::params::ensure,
-  $package           = $::kerberos::params::package,
-  $package_config    = $::kerberos::params::package_config,
-  $version           = $::kerberos::params::version,
-  $file_mode         = $::kerberos::params::file_mode,
-  $file_owner        = $::kerberos::params::file_owner,
-  $file_group        = $::kerberos::params::file_group,
-  $file_krb5_conf    = $::kerberos::params::file_krb5_conf,
-  $dependency_class  = $::kerberos::params::dependency_class,
-  $my_class          = $::kerberos::params::my_class,
-  $noops             = undef,
-  $default_realm     = 'EXAMPLE.COM',
+  $ensure               = $::kerberos::params::ensure,
+  $package              = $::kerberos::params::package,
+  $package_config       = $::kerberos::params::package_config,
+  $version              = $::kerberos::params::version,
+  $file_mode            = $::kerberos::params::file_mode,
+  $file_owner           = $::kerberos::params::file_owner,
+  $file_group           = $::kerberos::params::file_group,
+  $file_krb5_conf       = $::kerberos::params::file_krb5_conf,
+  $erb_krb5_conf_header = $::kerberos::params::erb_krb5_conf_header,
+  $erb_krb5_conf_realm  = $::kerberos::params::erb_krb5_conf_realm,
+  $erb_krb5_conf_drealm = $::kerberos::params::erb_krb5_conf_drealm,
+  $dependency_class     = $::kerberos::params::dependency_class,
+  $my_class             = $::kerberos::params::my_class,
+  $noops                = undef,
+  $default_realm        = 'EXAMPLE.COM',
 ) inherits kerberos::params {
 
   ### Input parameters validation
@@ -115,7 +118,7 @@ class kerberos (
 
   concat::fragment { "${file_krb5_conf}_header":
     target  => $file_krb5_conf,
-    content => template('kerberos/krb5.conf_header.erb'),
+    content => template($erb_krb5_conf_header),
     order   => '100',
   }
 

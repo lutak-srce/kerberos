@@ -10,21 +10,24 @@
 define kerberos::realm (
   $realm,
   $kdc,
-  $admin_server   = 'UNSET',
-  $auth_to_local  = 'DEFAULT',
-  $file_krb5_conf = $::kerberos::file_krb5_conf,
+  $admin_server         = 'UNSET',
+  $auth_to_local        = 'DEFAULT',
+  $file_krb5_conf       = $::kerberos::file_krb5_conf,
+  $erb_krb5_conf_realm  = $::kerberos::erb_krb5_conf_realm,
+  $erb_krb5_conf_drealm = $::kerberos::erb_krb5_conf_drealm,
 ) {
+
   include ::kerberos
 
   concat::fragment { "${file_krb5_conf}_realms_${realm}":
     target  => $file_krb5_conf,
-    content => template('kerberos/krb5.conf_realm.erb'),
+    content => template($erb_krb5_conf_realm),
     order   => '200',
   }
 
   concat::fragment { "${file_krb5_conf}_domainrealms_${realm}":
     target  => $file_krb5_conf,
-    content => template('kerberos/krb5.conf_domainrealm.erb'),
+    content => template($erb_krb5_conf_drealm),
     order   => '400',
   }
 
